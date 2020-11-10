@@ -8,13 +8,13 @@ import { loginApi_Response } from "src/app/models/models";
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css"],
+  styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
   submitted = false;
 
   loginForm: FormGroup;
-  isManagerLogin = false;
+
   constructor(
     private _auth: AuthServiceService,
     private _router: Router,
@@ -41,6 +41,26 @@ export class LoginComponent implements OnInit {
       this.submitted = true;
       return;
     }
+    this._auth.loginUser(this.loginForm.value).subscribe(
+
+      (res) => {
+        if(res.success){
+          successAlert(res.msg,'Login')
+          this._auth.storeUserData(res.user)
+          this._router.navigateByUrl("/dashboard/user");
+          this.loginForm.reset();
+          this.submitted = false
+        }else {
+          errorAlert(res.msg,'Login')
+          this.submitted = false
+        }
+
+      },
+      (error: HttpErrorResponse) => {
+        errorAlert(error.error.message, error.statusText);
+        this.loginForm.reset();
+      }
+    );
     // this._auth.login(this.loginForm.value).subscribe(
     //   (res: loginApi_Response) => {
     //     if (res.status === 200) {

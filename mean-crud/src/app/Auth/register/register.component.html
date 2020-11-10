@@ -7,9 +7,7 @@
             <div class="card-body">
               <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                 <h1 class="text-center">Register</h1>
-                <p class="text-muted text-center">
-                  Create your account as {{ this.registerType }}
-                </p>
+
 
                 <div class="form-group input-group mb-3">
                   <div class="input-group-prepend">
@@ -22,9 +20,9 @@
                     tabindex="1"
                     placeholder="Full Name"
                     style="padding: 10px 12px; border: 1;"
-                    formControlName="fullName"
+                    formControlName="name"
                     class="form-control"
-                    [ngClass]="{ 'is-invalid': submitted && f.fullName.errors }"
+                    [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
                   />
                   <div
                     *ngIf="submitted && f.email.errors"

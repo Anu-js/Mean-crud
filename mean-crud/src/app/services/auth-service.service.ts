@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "src/environments/environment";
-import { Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { map, tap } from "rxjs/operators";
 import {
   loginApi_Response,
@@ -13,6 +13,7 @@ import { Router } from "@angular/router";
 })
 export class AuthServiceService {
   baseUrl = environment.baseUrl;
+public userData
   httpOptions = {
     headers: new HttpHeaders({
       Accept: "application/json",
@@ -22,18 +23,33 @@ export class AuthServiceService {
   public userprofileDetails: ProfileDetailsApi_Response;
   constructor(private http: HttpClient, private router: Router) {}
 
+  loginUser(data): Observable<any> {
+    return this.http
+      .post<any>(`${this.baseUrl}/login`, data, this.httpOptions)
+      .pipe(
+
+        map((res: Response) => res));
+  }
+  registerUser(data): Observable<any> {
+    return this.http
+      .post<any>(`${this.baseUrl}/register`, data, this.httpOptions)
+      .pipe(map((res: Response) => res));
+  }
 
 
-  storeAuthToken(token) {
-    localStorage.setItem("token", token);
+  storeUserData(data) {
+    const dt = JSON.stringify(data)
+    localStorage.setItem("user", dt);
   }
 
   onLogout() {
-    localStorage.removeItem("token");
-    this.router.navigateByUrl("/login");
+    localStorage.removeItem("user");
+    this.router.navigateByUrl("/auth/login");
   }
 
   getToken() {
-    return localStorage.getItem("token");
+    const data  = localStorage.getItem("user");
+
+    return JSON.parse(data)
   }
 }
