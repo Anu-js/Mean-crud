@@ -1,15 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
-    <a class="navbar-brand ml-3" >Nextazy</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <a class="navbar-brand ml-3">Nextazy</a>
+    <button class="navbar-toggler" type="button">
       <span class="navbar-toggler-icon" (click)="isShown = !isShown"></span>
     </button>
 
@@ -23,40 +15,35 @@
         <button
           class="btn btn-primary dropdown-toggle"
           type="button"
-          id="dropdownMenuButton"
+
           data-toggle="dropdown"
           (click)="onUpdatePoup()"
-          aria-haspopup="true"
-          aria-expanded="false"
+
         >
           {{ userData?.name }}
         </button>
-        <button class="btn btn-primary" (click)="logout()">
-          Logout
-        </button>
+        <button class="btn btn-primary" (click)="logout()">Logout</button>
       </div>
     </div>
   </div>
 </nav>
 
 <div class="container pt-5">
-  <div style="padding: 15px;">
+  <div style="padding: 15px">
     <span>
       <h4>
         <i class="fa fa-user" aria-hidden="true"></i> Welcome
         {{ userData?.name }}
       </h4>
     </span>
-    <p>welcome to Task Portal</p>
-
+    <p>welcome to Nextazy Portal</p>
   </div>
-  <div class="card-body" style="padding: 10px;">
+  <div class="card-body" style="padding: 10px">
     <div class="table-responsive table-body">
       <table class="table table-bordered table-hover table-md">
-        <thead class="thead-light" style="text-align: center;">
+        <thead class="thead-light" style="text-align: center">
           <tr>
-
-            <th>user Name  </th>
+            <th>user Name</th>
             <th>Email id</th>
             <th>Created Time</th>
             <th>Updated Time</th>
@@ -64,25 +51,19 @@
           </tr>
         </thead>
         <tbody class="text-center">
-          <tr
-            *ngFor="
-              let item of userDetails
-
-
-            "
-          >
-
+          <tr *ngFor="let item of userDetails">
             <td>{{ item.name }}</td>
             <td>{{ item.email }}</td>
             <td>{{ item.createdAt | date: "medium" }}</td>
             <td>{{ item.updatedAt | date: "medium" }}</td>
-            <td> <button class="btn btn-outline-danger" (click)="ondeleteUser(item._id)">
-              <i class="fa fa-trash" aria-hidden="true"></i>
-            </button>
+            <td>
+              <button
+                class="btn btn-outline-danger"
+                (click)="ondeleteUser(item._id)"
+              >
+                <i class="fa fa-trash" aria-hidden="true"></i>
+              </button>
             </td>
-
-
-
           </tr>
         </tbody>
       </table>
@@ -95,89 +76,85 @@
     </div>
   </div>
 
-
-
-<ng-template #updateModal let-c="close" let-d="dismiss">
-  <div>
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Your Profile</h4>
-        <span class="text-right" *ngIf="!editMode">
-          <button class="btn pl-2" (click)="onUpdate()">
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-          </button>
-        </span>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-md-12">
-            <div>
-              <form [formGroup]="userUpdate" >
-              <table class="table table-boderless">
-                <tbody>
-
-                    <tr>
-                      <td class="text-left">Full Name</td>
-                      <td *ngIf="!editMode">
-                        {{ userData?.name }}
-                      </td>
-                      <td *ngIf="editMode">
-                        <div class="form-group">
-                          <input
-                            type="text"
-                            style="border: 2;"
-                            placeholder="Enter name"
-                          formControlName="name"
-                            class="form-control"
-                          />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="text-left">Email</td>
-                      <td *ngIf="!editMode">
-                        {{ userData?.email }}
-                      </td>
-                      <td *ngIf="editMode">
-                        <div class="form-group">
-                          <input
-                            type="text"
-                            style="border: 2;"
-                            placeholder="Enter email"
-                            formControlName="email"
-                            class="form-control"
-                          />
-                        </div>
-                      </td>
-                    </tr>
-
-
-                </tbody>
-              </table>
-            </form>
+  <ng-template #updateModal let-c="close" let-d="dismiss">
+    <div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Your Profile</h4>
+          <span class="text-right" *ngIf="!editMode">
+            <button class="btn pl-2" (click)="onUpdate()">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </button>
+          </span>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div>
+                <form [formGroup]="userUpdate">
+                  <table class="table table-boderless">
+                    <tbody>
+                      <tr>
+                        <td class="text-left">Full Name</td>
+                        <td *ngIf="!editMode">
+                          {{ userData?.name }}
+                        </td>
+                        <td *ngIf="editMode">
+                          <div class="form-group">
+                            <input
+                              type="text"
+                              style="border: 2"
+                              placeholder="Enter name"
+                              formControlName="name"
+                              class="form-control"
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="text-left">Email</td>
+                        <td *ngIf="!editMode">
+                          {{ userData?.email }}
+                        </td>
+                        <td *ngIf="editMode">
+                          <div class="form-group">
+                            <input
+                              type="text"
+                              style="border: 2"
+                              placeholder="Enter email"
+                              formControlName="email"
+                              class="form-control"
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-primary"
-          (click)="cancelProfieUpdate()"
-          data-dismiss="modal"
-        >
-          {{ editMode ? "Cancel" : "Okay" }}
-        </button>
-        <button
-          *ngIf="editMode"
-          type="submit"
-          class="btn btn-primary"
-          (click)="OnUpdateProfile()"
-          data-dismiss="modal"
-        >
-          Update
-        </button>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="cancelProfieUpdate()"
+            data-dismiss="modal"
+          >
+            {{ editMode ? "Cancel" : "Okay" }}
+          </button>
+          <button
+            *ngIf="editMode"
+            type="submit"
+            class="btn btn-primary"
+            (click)="OnUpdateProfile()"
+            data-dismiss="modal"
+          >
+            Update
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-</ng-template>
+  </ng-template>
+</div>

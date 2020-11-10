@@ -20,14 +20,10 @@ exports.registerUser = (req, res) => {
     });
 
     User.addUser(newUser, (err, user) => {
-        if (err) {
-            console.log(err);
-            let msg = "";
-            if (err.errors.email) msg += "Email already exists.";
-            if (err.errors.mobilenumber) msg += "Mobilenumber already exists";
+        if (err) { 
             res.json({
                 success: false,
-                msg,
+                msg : "Email already exists."
             });
         } else {
             return res.json({
@@ -129,7 +125,7 @@ exports.deleteUser = (req, res) => {
         if (err) {
             return res.json({
                 success: false,
-                msg: " User Cant be deleted!!",
+                msg: " User no found!!",
             });
         } else {
             return res.json({

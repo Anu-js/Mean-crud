@@ -34,7 +34,7 @@ export class UserComponent implements OnInit {
     private modelService: NgbModal,
     private formBuilder: FormBuilder
   ) {
-    this.esistingUser = this._auth.getToken();
+    this.esistingUser = this._auth.getUser();
   }
 
   ngOnInit(): void {
@@ -108,6 +108,7 @@ export class UserComponent implements OnInit {
       if(result.value){
         this.userService.deleteUser(id).subscribe((res)=>{
           this.getUserList();
+          successAlert(res.msg)
         })
       }
     })
